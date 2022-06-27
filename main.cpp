@@ -11,5 +11,6 @@ int main() {
     cout << token.toString();
     //TODO build everything else
     //TODO finish project by tuesday
+    //TODO get the rest of the tokens
     return 0;
 }
