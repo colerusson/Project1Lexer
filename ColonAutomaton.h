@@ -7,6 +7,7 @@ public:
     ColonAutomaton() {
         type = TokenType::COLON; // set the type
     }
+
 private:
     void s0() {
         if (match(':')) {

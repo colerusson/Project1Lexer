@@ -7,6 +7,7 @@ public:
     ColonDashAutomaton() {
         type = TokenType::COLON_DASH; // set the type
     }
+
 private:
     void s0() {
         if (match(':')) {
@@ -16,6 +17,7 @@ private:
         else
             sError(); // this calls the error state
     }
+
     void s1() {
         if (endOfFile()) {
             sError();

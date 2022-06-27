@@ -9,6 +9,7 @@ public:
     IDAutomaton() {
         type = TokenType::ID; // set the type
     }
+
 private:
     void s0() {
         if (isalpha(curr())) {

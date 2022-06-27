@@ -5,8 +5,22 @@
 #include "Token.h"
 #include "Automaton.h"
 #include "IDAutomaton.h"
+#include "AddAutomaton.h"
+#include "FactsAutomaton.h"
 #include "ColonAutomaton.h"
+#include "CommaAutomaton.h"
+#include "RulesAutomaton.h"
+#include "PeriodAutomaton.h"
+#include "Q_MarkAutomaton.h"
+#include "StringAutomaton.h"
+#include "QueriesAutomaton.h"
+#include "SchemesAutomaton.h"
+#include "CommentAutomaton.h"
+#include "MultiplyAutomaton.h"
 #include "ColonDashAutomaton.h"
+#include "Left_ParenAutomaton.h"
+#include "Right_ParenAutomaton.h"
+#include "BlockCommentAutomaton.h"
 #include "UndefinedCharAutomaton.h"
 
 class Lexer {
@@ -18,7 +32,21 @@ public:
     void initializeAutomata() {
         automata.push_back(new ColonAutomaton());
         automata.push_back(new ColonDashAutomaton());
+        automata.push_back(new FactsAutomaton());
+        automata.push_back(new RulesAutomaton());
+        automata.push_back(new QueriesAutomaton());
+        automata.push_back(new SchemesAutomaton());
+        automata.push_back(new AddAutomaton());
+        automata.push_back(new MultiplyAutomaton());
+        automata.push_back(new CommaAutomaton());
+        automata.push_back(new StringAutomaton());
+        automata.push_back(new Right_ParenAutomaton());
+        automata.push_back(new Left_ParenAutomaton());
+        automata.push_back(new Q_MarkAutomaton());
+        automata.push_back(new PeriodAutomaton());
         automata.push_back(new IDAutomaton());
+        automata.push_back(new CommentAutomaton());
+        automata.push_back(new BlockCommentAutomaton());
         automata.push_back(new UndefinedCharAutomaton());
     }
 

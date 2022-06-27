@@ -7,6 +7,7 @@ public:
     UndefinedCharAutomaton() {
         type = TokenType::UNDEFINED; // set the type
     }
+
 private:
     void s0() {
         next(); // read next character

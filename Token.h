@@ -5,7 +5,8 @@
 using namespace std;
 
 enum TokenType {
-    COMMA, COLON, COLON_DASH, UNDEFINED, ID // add more here
+    ADD, BLOCK, COMMA, COMMENT, COLON, COLON_DASH, UNDEFINED, ID, FACTS, LEFT_PAREN, RIGHT_PAREN,
+    MULTIPLY, PERIOD, Q_MARK, QUERIES, RULES, SCHEMES, STRING
 };
 
 class Token {
@@ -33,6 +34,32 @@ public:
                 return "COLON_DASH";
             case ID:
                 return "ID";
+            case COMMENT:
+                return "COMMENT";
+            case BLOCK:
+                return "COMMENT";
+            case ADD:
+                return "ADD";
+            case FACTS:
+                return "FACTS";
+            case LEFT_PAREN:
+                return "LEFT_PAREN";
+            case RIGHT_PAREN:
+                return "RIGHT_PAREN";
+            case MULTIPLY:
+                return "MULTIPLY";
+            case PERIOD:
+                return "PERIOD";
+            case Q_MARK:
+                return "Q_MARK";
+            case QUERIES:
+                return "QUERIES";
+            case RULES:
+                return "RULES";
+            case SCHEMES:
+                return "SCHEMES";
+            case STRING:
+                return "STRING";
             case UNDEFINED:
                 return "UNDEFINED";
             default:

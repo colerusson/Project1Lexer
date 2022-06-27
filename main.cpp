@@ -1,9 +1,8 @@
 #include <iostream>
 #include <fstream>
-#include "Token.h"
-#include "Automaton.h"
-#include "Lexer.h"
 #include <string>
+#include "Token.h"
+#include "Lexer.h"
 
 using namespace std;
 
@@ -12,12 +11,10 @@ int main(int argc, char* argv[]) {
     string stringFile;
     stringFile.assign((istreambuf_iterator<char>(inputFile)), (istreambuf_iterator<char>()));
 
-
-
-    Token token = Token(COMMA, ",", 42);
-    cout << token.toString();
-    //TODO build everything else
-    //TODO finish project by tuesday
-    //TODO get the rest of the tokens
+    vector<Token> tokens;
+    Lexer lexer;
+    tokens = lexer.run(stringFile);
+    cout << "Total Tokens = " << tokens.size();
     return 0;
+
 }
