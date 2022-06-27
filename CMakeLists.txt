@@ -13,4 +13,18 @@ add_executable(Project1Lexer
         Lexer.h
         main.cpp
         Token.h
-        UndefinedCharAutomaton.h CommaAutomaton.h PeriodAutomaton.h Q_MarkAutomaton.h Left_ParenAutomaton.h Right_ParenAutomaton.h MultiplyAutomaton.h AddAutomaton.h SchemesAutomaton.h FactsAutomaton.h RulesAutomaton.h QueriesAutomaton.h StringAutomaton.h CommentAutomaton.h BlockCommentAutomaton.h)
+        UndefinedCharAutomaton.h
+        CommaAutomaton.h
+        PeriodAutomaton.h
+        Q_MarkAutomaton.h
+        Left_ParenAutomaton.h
+        Right_ParenAutomaton.h
+        MultiplyAutomaton.h
+        AddAutomaton.h
+        SchemesAutomaton.h
+        FactsAutomaton.h
+        RulesAutomaton.h
+        QueriesAutomaton.h
+        StringAutomaton.h
+        CommentAutomaton.h
+        BlockCommentAutomaton.h)
