@@ -20,7 +20,6 @@ int main(int argc, char* argv[]) {
         cout << errorMsg;
     }
     cout << "Total Tokens = " << tokens.size();
-    cout << endl;
 
     return 0;
 }

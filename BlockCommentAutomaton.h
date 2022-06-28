@@ -54,13 +54,13 @@ private:
             next();
             s3();
         }
-        else if (!match('#')) {
+        else if (match('#')) {
             next();
-            s2();
+            return;
         }
         else {
             next();
-            return;
+            s2();
         }
     }
 };

@@ -46,9 +46,9 @@ public:
         automata.push_back(new Left_ParenAutomaton());
         automata.push_back(new Q_MarkAutomaton());
         automata.push_back(new PeriodAutomaton());
-        automata.push_back(new IDAutomaton());
-        automata.push_back(new CommentAutomaton());
         automata.push_back(new BlockCommentAutomaton());
+        automata.push_back(new CommentAutomaton());
+        automata.push_back(new IDAutomaton());
         automata.push_back(new UndefinedCharAutomaton());
     }
 

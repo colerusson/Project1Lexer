@@ -22,9 +22,21 @@ private:
         if (endOfFile()) {
             return;
         }
+        else if (match('|')) {
+            sError();
+        }
+        else {
+            s2();
+        }
+    }
+
+    void s2() {
+        if (endOfFile()) {
+            return;
+        }
         else if (!match('\n')) {
             next();
-            s1();
+            s2();
         }
         else {
             return;
