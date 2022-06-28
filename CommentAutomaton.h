@@ -20,32 +20,14 @@ private:
 
     void s1() {
         if (endOfFile()) {
-            sError();
+            return;
         }
         else if (!match('\n')) {
             next();
-            if (endOfFile()) {
-                type = TokenType::UNDEFINED;
-                return;
-            }
             s1();
         }
         else {
-            next();
-            s2();
-        }
-    }
-
-    void s2() {
-        if (endOfFile()) {
-            sError();
-        }
-        else if (getNewLines() > 0) {
             return;
-        }
-        else {
-            next();
-            s2();
         }
     }
 };

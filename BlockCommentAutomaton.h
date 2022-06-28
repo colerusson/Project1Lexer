@@ -32,14 +32,11 @@ private:
 
     void s2() {
         if (endOfFile()) {
-            sError();
+            type = TokenType::UNDEFINED;
+            return;
         }
         else if (!match('|')) {
             next();
-            if (endOfFile()) {
-                type = TokenType::UNDEFINED;
-                return;
-            }
             s2();
         }
         else {
@@ -50,7 +47,12 @@ private:
 
     void s3() {
         if (endOfFile()) {
-            sError();
+            type = TokenType::UNDEFINED;
+            return;
+        }
+        else if (match('|')) {
+            next();
+            s3();
         }
         else if (!match('#')) {
             next();

@@ -45,7 +45,6 @@ private:
             s1();
         }
         else {
-            next();
             return;
         }
     }

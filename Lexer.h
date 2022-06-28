@@ -58,11 +58,12 @@ public:
         while (input.size() > 0) {
             Automaton *maxAutomaton = automata.at(0);
             unsigned int maxRead = 0;
-            while (isspace(input[0]) || input[0] == '\n') {
+            if (isspace(input[0]) || input[0] == '\n') {
                 if (input[0] == '\n') {
                     line += 1;
                 }
                 input = input.substr(1);
+                continue;
             }
             for (unsigned int i = 0; i < automata.size(); i++) {
                 Automaton *currAutomaton = automata.at(i);
@@ -73,9 +74,6 @@ public:
                 }
             }
             Token currToken = Token(maxAutomaton->getType(), input.substr(0, maxRead), line);
-            if (currToken.getType() == "COMMENT") {
-                currToken = Token(maxAutomaton->getType(), input.substr(0, maxRead - 1), line);
-            }
             cout << currToken.toString() << endl;
             input = input.substr(maxRead);
             line += maxAutomaton->getNewLines();
