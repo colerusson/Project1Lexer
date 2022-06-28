@@ -82,8 +82,6 @@ public:
             input = input.substr(maxRead);
             line += maxAutomaton->getNewLines();
             tokens.push_back(currToken);
-            maxRead = 0;
-            maxAutomaton = automata.at(0);
         }
         Token t = Token(END_OF_FILE, "", line);
         tokens.push_back(t);
