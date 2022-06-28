@@ -10,7 +10,7 @@ public:
 
 private:
     void s0() {
-        if (match(':')) {
+        if (match('.')) {
             next();
             return; // this represents accepting the input
         }

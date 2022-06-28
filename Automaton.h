@@ -52,6 +52,7 @@ protected:
 
 public:
     Automaton() {}
+    virtual ~Automaton() {}
 
     unsigned int run(std::string input) {
         this->input = input;

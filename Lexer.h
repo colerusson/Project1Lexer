@@ -1,7 +1,9 @@
 #ifndef PROJECT1LEXER_LEXER_H
 #define PROJECT1LEXER_LEXER_H
 #include <vector>
+#include <cctype>
 #include <iostream>
+#include <algorithm>
 #include "Token.h"
 #include "Automaton.h"
 #include "IDAutomaton.h"
@@ -56,8 +58,17 @@ public:
         while (input.size() > 0) {
             Automaton *maxAutomaton = automata.at(0);
             unsigned int maxRead = 0;
-            // TODO handle whitespace here by using a while loop and substringing off newlines and spaces before a token
-            while ()
+            while (isspace(input[0]) || input[0] == '\n') {
+                if (input[0] == '\n') {
+                    line += 1;
+                }
+                if (input[1] != EOF) {
+                    input = input.substr(1);
+                }
+                else {
+                    break;
+                }
+            }
             for (unsigned int i = 0; i < automata.size(); i++) {
                 Automaton *currAutomaton = automata.at(i);
                 unsigned int numCharRead = currAutomaton->run(input);

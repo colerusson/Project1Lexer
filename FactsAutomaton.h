@@ -10,7 +10,46 @@ public:
 
 private:
     void s0() {
-        if (match(':')) {
+        if (match('F')) {
+            next();
+            s1(); // call s1 as the transition
+        }
+        else
+            sError(); // this calls the error state
+    }
+
+    void s1() {
+        if (match('a')) {
+            next();
+            s2(); // call s2 as the transition
+        }
+        else
+            sError(); // this calls the error state
+    }
+
+    void s2() {
+        if (match('c')) {
+            next();
+            s3(); // call s3 as the transition
+        }
+        else
+            sError(); // this calls the error state
+    }
+
+    void s3() {
+        if (match('t')) {
+            next();
+            s4(); // call s4 as the transition
+        }
+        else
+            sError(); // this calls the error state
+    }
+
+    void s4() {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('s')) {
             next();
             return; // this represents accepting the input
         }
