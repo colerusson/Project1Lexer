@@ -84,6 +84,12 @@ public:
         cout << t.toString() << endl;
         return tokens;
     }
+    ~Lexer() {
+        for (unsigned int i = 0; i < automata.size(); ++i) {
+            delete automata.at(i);
+            automata.at(i) = NULL;
+        }
+    }
 };
 
 #endif //PROJECT1LEXER_LEXER_H
