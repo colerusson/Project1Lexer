@@ -15,6 +15,6 @@ int main(int argc, char* argv[]) {
     Lexer lexer;
     tokens = lexer.run(stringFile);
     cout << "Total Tokens = " << tokens.size();
-    return 0;
 
+    return 0;
 }

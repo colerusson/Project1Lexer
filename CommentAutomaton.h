@@ -10,7 +10,7 @@ public:
 
 private:
     void s0() {
-        if (match(':')) {
+        if (match('#')) {
             next();
             s1(); // call s1 as the transition
         }
@@ -19,15 +19,28 @@ private:
     }
 
     void s1() {
-        if (endOfFile()) {
-            sError();
-        }
-        else if (match('-')) {
+        if (!match('\n')) {
             next();
-            return; // this represents accepting the input
+            if (endOfFile()) {
+                type = TokenType::UNDEFINED;
+                return;
+            }
+            s1();
         }
-        else
-            sError(); // this calls the error state
+        else {
+            next();
+            s2();
+        }
+    }
+
+    void s2() {
+        if (getNewLines() > 0) {
+            return;
+        }
+        else {
+            next();
+            s2();
+        }
     }
 };
 

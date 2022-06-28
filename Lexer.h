@@ -51,11 +51,13 @@ public:
     }
 
     vector<Token> run(string input) {
+        unsigned int line = 1;
         initializeAutomata();
         while (input.size() > 0) {
             Automaton *maxAutomaton = automata.at(0);
             unsigned int maxRead = 0;
-            // TODO handle whitespace
+            // TODO handle whitespace here by using a while loop and substringing off newlines and spaces before a token
+            while ()
             for (unsigned int i = 0; i < automata.size(); i++) {
                 Automaton *currAutomaton = automata.at(i);
                 unsigned int numCharRead = currAutomaton->run(input);
@@ -64,11 +66,17 @@ public:
                     maxAutomaton = currAutomaton;
                 }
             }
-            Token currToken = Token(maxAutomaton->getType(), input.substr(0, maxRead), 0);
+            Token currToken = Token(maxAutomaton->getType(), input.substr(0, maxRead), line);
             cout << currToken.toString() << endl;
             input = input.substr(maxRead);
+            line += maxAutomaton->getNewLines();
             tokens.push_back(currToken);
+            maxRead = 0;
+            maxAutomaton = automata.at(0);
         }
+        Token t = Token(END_OF_FILE, "", line);
+        tokens.push_back(t);
+        cout << t.toString() << endl;
         return tokens;
     }
 };

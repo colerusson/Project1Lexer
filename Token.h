@@ -6,7 +6,7 @@ using namespace std;
 
 enum TokenType {
     ADD, BLOCK, COMMA, COMMENT, COLON, COLON_DASH, UNDEFINED, ID, FACTS, LEFT_PAREN, RIGHT_PAREN,
-    MULTIPLY, PERIOD, Q_MARK, QUERIES, RULES, SCHEMES, STRING
+    MULTIPLY, PERIOD, Q_MARK, QUERIES, RULES, SCHEMES, STRING, END_OF_FILE
 };
 
 class Token {
@@ -60,6 +60,8 @@ public:
                 return "SCHEMES";
             case STRING:
                 return "STRING";
+            case END_OF_FILE:
+                return "EOF";
             case UNDEFINED:
                 return "UNDEFINED";
             default:
