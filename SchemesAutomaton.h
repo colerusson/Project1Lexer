@@ -19,7 +19,10 @@ private:
     }
 
     void s1() {
-        if (match('c')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('c')) {
             next();
             s2(); // call s2 as the transition
         }
@@ -28,7 +31,10 @@ private:
     }
 
     void s2() {
-        if (match('h')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('h')) {
             next();
             s3(); // call s3 as the transition
         }
@@ -37,7 +43,10 @@ private:
     }
 
     void s3() {
-        if (match('e')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('e')) {
             next();
             s4(); // call s4 as the transition
         }
@@ -46,7 +55,10 @@ private:
     }
 
     void s4() {
-        if (match('m')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('m')) {
             next();
             s5(); // call s4 as the transition
         }
@@ -55,7 +67,10 @@ private:
     }
 
     void s5() {
-        if (match('e')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('e')) {
             next();
             s6(); // call s4 as the transition
         }

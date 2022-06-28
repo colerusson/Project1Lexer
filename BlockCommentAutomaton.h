@@ -19,7 +19,10 @@ private:
     }
 
     void s1() {
-        if (match('|')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('|')) {
             next();
             s2();
         }
@@ -28,7 +31,10 @@ private:
     }
 
     void s2() {
-        if (!match('|')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (!match('|')) {
             next();
             if (endOfFile()) {
                 type = TokenType::UNDEFINED;
@@ -43,7 +49,10 @@ private:
     }
 
     void s3() {
-        if (!match('#')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (!match('#')) {
             next();
             s2();
         }

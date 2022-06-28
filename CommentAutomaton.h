@@ -19,7 +19,10 @@ private:
     }
 
     void s1() {
-        if (!match('\n')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (!match('\n')) {
             next();
             if (endOfFile()) {
                 type = TokenType::UNDEFINED;
@@ -34,7 +37,10 @@ private:
     }
 
     void s2() {
-        if (getNewLines() > 0) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (getNewLines() > 0) {
             return;
         }
         else {

@@ -19,7 +19,10 @@ private:
     }
 
     void s1() {
-        if (match('a')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('a')) {
             next();
             s2(); // call s2 as the transition
         }
@@ -28,7 +31,10 @@ private:
     }
 
     void s2() {
-        if (match('c')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('c')) {
             next();
             s3(); // call s3 as the transition
         }
@@ -37,7 +43,10 @@ private:
     }
 
     void s3() {
-        if (match('t')) {
+        if (endOfFile()) {
+            sError();
+        }
+        else if (match('t')) {
             next();
             s4(); // call s4 as the transition
         }

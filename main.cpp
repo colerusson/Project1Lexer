@@ -14,7 +14,11 @@ int main(int argc, char* argv[]) {
 
     vector<Token> tokens;
     Lexer lexer;
-    tokens = lexer.run(stringFile);
+    try {
+        tokens = lexer.run(stringFile);
+    } catch(const char* errorMsg) {
+        cout << errorMsg;
+    }
     cout << "Total Tokens = " << tokens.size();
     cout << endl;
 
