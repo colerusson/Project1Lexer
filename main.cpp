@@ -4,22 +4,27 @@
 #include <vector>
 #include "Token.h"
 #include "Lexer.h"
+#include "Parser.h"
 
 using namespace std;
 
 int main(int argc, char* argv[]) {
+
     ifstream inputFile(argv[1]);
     string stringFile;
     stringFile.assign((istreambuf_iterator<char>(inputFile)), (istreambuf_iterator<char>()));
 
-    vector<Token> tokens;
-    Lexer lexer;
     try {
+        vector<Token> tokens;
+        Lexer lexer;
         tokens = lexer.run(stringFile);
-    } catch(const char* errorMsg) {
-        cout << errorMsg;
+        //Parser parser = Parser(tokens);
+        //parser.run();         //TODO create this run method to run it all together
+        cout << "Total Tokens = " << tokens.size();
     }
-    cout << "Total Tokens = " << tokens.size();
+    catch(Token errorToken) {
+        cout << "Failure!" << endl << " " << errorToken.toString();
+    }
 
     return 0;
 }

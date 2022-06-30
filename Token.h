@@ -9,6 +9,51 @@ enum TokenType {
     MULTIPLY, PERIOD, Q_MARK, QUERIES, RULES, SCHEMES, STRING, END_OF_FILE
 };
 
+string typeName(TokenType type) {
+    switch (type) {
+        case COMMA:
+            return "COMMA";
+        case COLON:
+            return "COLON";
+        case COLON_DASH:
+            return "COLON_DASH";
+        case ID:
+            return "ID";
+        case COMMENT:
+            return "COMMENT";
+        case BLOCK:
+            return "COMMENT";
+        case ADD:
+            return "ADD";
+        case FACTS:
+            return "FACTS";
+        case LEFT_PAREN:
+            return "LEFT_PAREN";
+        case RIGHT_PAREN:
+            return "RIGHT_PAREN";
+        case MULTIPLY:
+            return "MULTIPLY";
+        case PERIOD:
+            return "PERIOD";
+        case Q_MARK:
+            return "Q_MARK";
+        case QUERIES:
+            return "QUERIES";
+        case RULES:
+            return "RULES";
+        case SCHEMES:
+            return "SCHEMES";
+        case STRING:
+            return "STRING";
+        case END_OF_FILE:
+            return "EOF";
+        case UNDEFINED:
+            return "UNDEFINED";
+        default:
+            return "ADD TO SWITCH";
+    }
+}
+
 class Token {
 private:
     TokenType type = UNDEFINED;
@@ -24,53 +69,12 @@ public:
         return out.str();
     }
 
-    string getType() {
-        return typeName(type);
+    TokenType getType() const {
+        return type;
     }
 
-    string typeName(TokenType type) const {
-        switch (type) {
-            case COMMA:
-                return "COMMA";
-            case COLON:
-                return "COLON";
-            case COLON_DASH:
-                return "COLON_DASH";
-            case ID:
-                return "ID";
-            case COMMENT:
-                return "COMMENT";
-            case BLOCK:
-                return "COMMENT";
-            case ADD:
-                return "ADD";
-            case FACTS:
-                return "FACTS";
-            case LEFT_PAREN:
-                return "LEFT_PAREN";
-            case RIGHT_PAREN:
-                return "RIGHT_PAREN";
-            case MULTIPLY:
-                return "MULTIPLY";
-            case PERIOD:
-                return "PERIOD";
-            case Q_MARK:
-                return "Q_MARK";
-            case QUERIES:
-                return "QUERIES";
-            case RULES:
-                return "RULES";
-            case SCHEMES:
-                return "SCHEMES";
-            case STRING:
-                return "STRING";
-            case END_OF_FILE:
-                return "EOF";
-            case UNDEFINED:
-                return "UNDEFINED";
-            default:
-                return "ADD TO SWITCH";
-        }
+    const string &getContents() const {
+        return contents;
     }
 };
 

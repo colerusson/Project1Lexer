@@ -27,4 +27,4 @@ add_executable(Project1Lexer
         QueriesAutomaton.h
         StringAutomaton.h
         CommentAutomaton.h
-        BlockCommentAutomaton.h)
+        BlockCommentAutomaton.h Parser.h)

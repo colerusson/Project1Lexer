@@ -1,0 +1,59 @@
+#ifndef PROJECT1LEXER_PARSER_H
+#define PROJECT1LEXER_PARSER_H
+#include <vector>
+#include "Token.h"
+#include <iostream>
+
+class Parser {
+private:
+    vector<Token> tokens;
+    unsigned int currTokenIndex = 0;
+
+public:
+    Parser(const vector<Token>& tokens) : tokens(tokens) {}
+
+    TokenType currTokenType() const {
+        if (currTokenIndex >= tokens.size()) return UNDEFINED;
+        return tokens.at(currTokenIndex).getType();
+    }
+    void advanceToken() {
+        ++currTokenIndex;
+    }
+    void throwError() {
+        if (currTokenIndex >= tokens.size()) throw tokens.at(tokens.size() - 1);
+        throw tokens.at(currTokenIndex);
+    }
+
+    void match(TokenType expectedType) {
+        cout << "Token at index " << currTokenIndex << " was type: " << typeName(currTokenType()) << " expected: " << typeName(expectedType) << endl;
+        if (expectedType == currTokenType()) {
+            advanceToken();
+        }
+        else {
+            throwError();
+        }
+    }
+
+    //   idList -> COMMA ID idList | lambda
+    void idList() {
+        if (currTokenType() == COMMA) {
+            match(COMMA);
+            match(ID);
+            idList();
+        }
+        else {
+            // lambda, do nothing
+        }
+    }
+
+    //scheme -> ID LEFT_PAREN ID idList RIGHT_PAREN
+    void scheme() {
+        match(ID);
+        match(LEFT_PAREN);
+        match(ID);
+        idList();
+        match(RIGHT_PAREN);
+    }
+};
+
+#endif //PROJECT1LEXER_PARSER_H
