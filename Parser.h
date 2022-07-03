@@ -16,9 +16,11 @@ public:
         if (currTokenIndex >= tokens.size()) return UNDEFINED;
         return tokens.at(currTokenIndex).getType();
     }
+
     void advanceToken() {
         ++currTokenIndex;
     }
+
     void throwError() {
         if (currTokenIndex >= tokens.size()) throw tokens.at(tokens.size() - 1);
         throw tokens.at(currTokenIndex);
