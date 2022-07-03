@@ -74,7 +74,6 @@ public:
                 }
             }
             Token currToken = Token(maxAutomaton->getType(), input.substr(0, maxRead), line);
-            //cout << currToken.toString() << endl;
             input = input.substr(maxRead);
             line += maxAutomaton->getNewLines();
             if (currToken.getType() != COMMENT) {
@@ -83,9 +82,9 @@ public:
         }
         Token t = Token(END_OF_FILE, "", line);
         tokens.push_back(t);
-        //cout << t.toString() << endl;
         return tokens;
     }
+
     ~Lexer() {
         for (unsigned int i = 0; i < automata.size(); ++i) {
             delete automata.at(i);
