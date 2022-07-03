@@ -18,7 +18,7 @@ int main(int argc, char* argv[]) {
         vector<Token> tokens;
         Lexer lexer;
         tokens = lexer.run(stringFile);
-        //Parser parser = Parser(tokens);
+        Parser parser = Parser(tokens);
         //parser.run();         //TODO create this run method to run it all together
         cout << "Total Tokens = " << tokens.size();
     }

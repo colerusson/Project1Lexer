@@ -12,6 +12,12 @@ private:
 public:
     Parser(const vector<Token>& tokens) : tokens(tokens) {}
 
+    void run() {
+        while (unsigned int i = 0 < tokens.size()) {
+
+        }
+    }
+
     TokenType currTokenType() const {
         if (currTokenIndex >= tokens.size()) return UNDEFINED;
         return tokens.at(currTokenIndex).getType();

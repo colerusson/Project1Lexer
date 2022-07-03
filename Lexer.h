@@ -77,7 +77,9 @@ public:
             cout << currToken.toString() << endl;
             input = input.substr(maxRead);
             line += maxAutomaton->getNewLines();
-            tokens.push_back(currToken);
+            if (currToken.getType() != COMMENT) {
+                tokens.push_back(currToken);
+            }
         }
         Token t = Token(END_OF_FILE, "", line);
         tokens.push_back(t);
