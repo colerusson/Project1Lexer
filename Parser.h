@@ -12,10 +12,27 @@ private:
 public:
     Parser(const vector<Token>& tokens) : tokens(tokens) {}
 
-    void run() {
-        while (unsigned int i = 0 < tokens.size()) {
+    void DataLog() {
+        //SCHEMES COLON scheme schemeList FACTS COLON factList RULES COLON ruleList QUERIES COLON query queryList EOF
+        match(SCHEMES);
+        match(COLON);
+        scheme();
+        schemeList();
+        match(FACTS);
+        match(COLON);
+        factList();
+        match(RULES);
+        match(COLON);
+        ruleList();
+        match(QUERIES);
+        match(COLON);
+        query();
+        queryList();
+        match(END_OF_FILE);
+    }
 
-        }
+    void run() {
+        DataLog();
     }
 
     TokenType currTokenType() const {

@@ -74,7 +74,7 @@ public:
                 }
             }
             Token currToken = Token(maxAutomaton->getType(), input.substr(0, maxRead), line);
-            cout << currToken.toString() << endl;
+            //cout << currToken.toString() << endl;
             input = input.substr(maxRead);
             line += maxAutomaton->getNewLines();
             if (currToken.getType() != COMMENT) {
@@ -83,7 +83,7 @@ public:
         }
         Token t = Token(END_OF_FILE, "", line);
         tokens.push_back(t);
-        cout << t.toString() << endl;
+        //cout << t.toString() << endl;
         return tokens;
     }
     ~Lexer() {
