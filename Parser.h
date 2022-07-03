@@ -171,26 +171,46 @@ public:
 
     //schemeList ->	scheme schemeList | lambda
     void schemeList() {
-        scheme();
-        schemeList();
+        if (currTokenType() == ID) {
+            scheme();
+            schemeList();
+        }
+        else {
+            //lambda, do nothing
+        }
     }
 
     //factList	->	fact factList | lambda
     void factList() {
-        fact();
-        factList();
+        if (currTokenType() == ID) {
+            fact();
+            factList();
+        }
+        else {
+            //lambda, do nothing
+        }
     }
 
     //ruleList	->	rule ruleList | lambda
     void ruleList() {
-        rule();
-        ruleList();
+        if (currTokenType() == ID) {
+            rule();
+            ruleList();
+        }
+        else {
+            //lambda, do nothing
+        }
     }
 
     //queryList	->	query queryList | lambda
     void queryList() {
-        query();
-        queryList();
+        if (currTokenType() == ID) {
+            query();
+            queryList();
+        }
+        else {
+            //lambda, do nothing
+        }
     }
 };
 
