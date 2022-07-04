@@ -50,7 +50,6 @@ public:
     }
 
     void match(TokenType expectedType) {
-        cout << "Token at index " << currTokenIndex << " was type: " << typeName(currTokenType()) << " expected: " << typeName(expectedType) << endl;
         if (expectedType == currTokenType()) {
             advanceToken();
         }
@@ -73,7 +72,7 @@ public:
 
     //predicateList	->	COMMA predicate predicateList | lambda
     void predicateList() {
-        if (currTokenIndex == COMMA) {
+        if (currTokenType() == COMMA) {
             match(COMMA);
             predicate();
             predicateList();
@@ -85,19 +84,19 @@ public:
 
     //parameterList	-> 	COMMA parameter parameterList | lambda
     void parameterList() {
-        if (currTokenIndex == COMMA) {
+        if (currTokenType() == COMMA) {
             match(COMMA);
             parameter();
             parameterList();
         }
         else {
-            //lambda, do nothing
+            // lambda, do nothing
         }
     }
 
     //stringList	-> 	COMMA STRING stringList | lambda
     void stringList() {
-        if (currTokenIndex == COMMA) {
+        if (currTokenType() == COMMA) {
             match(COMMA);
             match(STRING);
             stringList();
@@ -109,11 +108,14 @@ public:
 
     //parameter	->	STRING | ID
     void parameter() {
-        if (currTokenIndex == STRING) {
+        if (currTokenType() == STRING) {
             match(STRING);
         }
-        else if (currTokenIndex == ID) {
+        else if (currTokenType() == ID) {
             match(ID);
+        }
+        else {
+            // lambda, do nothing
         }
     }
 
