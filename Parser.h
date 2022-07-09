@@ -2,12 +2,24 @@
 #define PROJECT1LEXER_PARSER_H
 #include <vector>
 #include "Token.h"
+#include "DatalogProgram.h"
 #include <iostream>
 
 class Parser {
 private:
     vector<Token> tokens;
     unsigned int currTokenIndex = 0;
+    DatalogProgram program;
+
+    string getPrevTokenContents() {
+        if (currTokenIndex < 0) throw "Out of bounds when checking";
+        return tokens.at(currTokenIndex - 1).getContents();
+    }
+
+    string getCurrTokenContents() {
+        if (currTokenIndex >= tokens.size()) throw "Out of bounds when checking";
+        return tokens.at(currTokenIndex).getContents();
+    }
 
 public:
     Parser(const vector<Token>& tokens) : tokens(tokens) {}
@@ -31,8 +43,10 @@ public:
         match(END_OF_FILE);
     }
 
-    void run() {
+    DatalogProgram run() {
         DataLog();
+        scheme();
+        return program;
     }
 
     TokenType currTokenType() const {
@@ -139,11 +153,19 @@ public:
 
     //scheme -> ID LEFT_PAREN ID idList RIGHT_PAREN
     void scheme() {
+        Predicate newScheme;
         match(ID);
+        newScheme.setName(getPrevTokenContents());
         match(LEFT_PAREN);
         match(ID);
+        Parameter firstParameter;
+        firstParameter.setValue(getPrevTokenContents());
+        newScheme.addParameter(firstParameter);
         idList();
+        //add here what is needed
+        //check video for help
         match(RIGHT_PAREN);
+        program.addScheme(newScheme);
     }
 
     //fact -> ID LEFT_PAREN STRING stringList RIGHT_PAREN PERIOD
