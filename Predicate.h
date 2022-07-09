@@ -1,7 +1,6 @@
 #ifndef PROJECT1LEXER_PREDICATE_H
 #define PROJECT1LEXER_PREDICATE_H
 #include "Parameter.h"
-#include <string>
 #include <vector>
 #include <sstream>
 

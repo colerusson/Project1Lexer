@@ -81,32 +81,28 @@ public:
     }
 
     string toString() {
-        string sep = "";
         stringstream out;
+        out << "Schemes(" << schemes.size() << "):" << endl;
         for (Predicate currPred : schemes) {
-            out << sep << currPred.toString();
-            sep = ",";
+            out << "  " << currPred.toString() << endl;
         }
+        out << "Facts(" << facts.size() << "):" << endl;
         for (Predicate currPred : facts) {
-            out << sep << currPred.toString();
-            sep = ",";
+            out << "  " << currPred.toString() << "." << endl;
         }
-        for (Predicate currPred : schemes) {
-            out << sep << currPred.toString();
-            sep = ",";
-        }
+        out << "Rules(" << rules.size() << "):" << endl;
         for (Rule currRule : rules) {
-            out << sep << currRule.toString();
-            sep = ",";
+            out << "  " << currRule.toString() << "." << endl;
         }
+        out << "Queries(" << queries.size() << "):" << endl;
         for (Predicate currPred : queries) {
-            out << sep << currPred.toString();
-            sep = ",";
+            out << "  " << currPred.toString() << "?" << endl;
         }
+        out << "Domain(" << domain.size() << "):" << endl;
         for (string currVal : domain) {
-            out << currVal;
-            out <<",";
+            out << "  " << currVal << endl;
         }
+        return out.str();
     }
 };
 

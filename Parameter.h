@@ -11,6 +11,7 @@ private:
 
 public:
     Parameter() {}
+    Parameter(const string &value) : value(value) {}
 
     const string &getValue() const {
         return value;

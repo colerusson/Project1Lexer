@@ -27,14 +27,14 @@ public:
     }
 
     //adder function
-    string addPredicate(Predicate predicateValue) {
+    void addPredicate(Predicate predicateValue) {
         body.push_back(predicateValue);
     }
 
     string toString() {
         string sep = "";
         stringstream out;
-        out << head.toString() << " ";
+        out << head.toString() << ":-";
         for (Predicate currPred : body) {
             out << sep << currPred.toString();
             sep = ",";
