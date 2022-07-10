@@ -21,7 +21,8 @@ int main(int argc, char* argv[]) {
     try {
         Parser parser = Parser(tokens);
         DatalogProgram program = parser.run();
-        cout << "Success!" << endl << program.toString();
+        cout << "Success!" << endl;
+        cout << program.toString();
     }
     catch(Token errorToken) {
         cout << "Failure!" << endl << " " << errorToken.toString();
@@ -32,47 +33,3 @@ int main(int argc, char* argv[]) {
 
     return 0;
 }
-
-//int main() {
-//    DatalogProgram program;
-//
-//    Predicate snapScheme;
-//    snapScheme.setName("snap");
-//    snapScheme.addParameter("S");
-//    snapScheme.addParameter("N");
-//    snapScheme.addParameter("A");
-//    snapScheme.addParameter("P");
-//    program.addScheme(snapScheme);
-//
-//    Predicate addressScheme;
-//    addressScheme.setName("HasSameAddress");
-//    addressScheme.addParameter("X");
-//    addressScheme.addParameter("Y");
-//    program.addScheme(addressScheme);
-//
-//    Predicate snapFact;
-//    snapFact.setName("snap");
-//    snapFact.addParameter("\'12345\'");
-//    snapFact.addParameter("\'C.Brown\'");
-//    snapFact.addParameter("\'12 Apple\'");
-//    snapFact.addParameter("\'555-1234\'");
-//    program.addFact(snapFact);
-//
-//    Rule rulePredicate;
-//    rulePredicate.setHead(addressScheme);
-//    rulePredicate.addPredicate(snapScheme);
-//    rulePredicate.addPredicate(snapScheme);
-//    program.addRule(rulePredicate);
-//
-//    Predicate addressQuery;
-//    addressQuery.setName("HasSameAddress");
-//    addressQuery.addParameter("\'Snoopy\'");
-//    addressQuery.addParameter("Who");
-//    program.addQuery(addressQuery);
-//
-//    program.addDomain("\'12 Apple\'");
-//
-//    cout << program.toString();
-//
-//    return 0;
-//}

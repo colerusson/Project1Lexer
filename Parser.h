@@ -45,7 +45,10 @@ public:
 
     DatalogProgram run() {
         DataLog();
-        scheme();
+        //scheme();
+        //fact();
+        //rule();
+        //query();
         return program;
     }
 
@@ -162,8 +165,11 @@ public:
         firstParameter.setValue(getPrevTokenContents());
         newScheme.addParameter(firstParameter);
         idList();
-        //add here what is needed
-        //check video for help
+        //what type should ID list return
+        //how to get that from the ID list into newScheme
+        //maybe give it the predicate
+        //how do we make sure those updates are retained Predicate&
+        //maybe use a member variable
         match(RIGHT_PAREN);
         program.addScheme(newScheme);
     }
