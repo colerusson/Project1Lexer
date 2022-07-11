@@ -98,6 +98,8 @@ public:
 
     //predicateList	->	COMMA predicate predicateList | lambda
     void predicateListRule(Rule& rule1, Predicate& pred1) {
+        vector<Parameter> newParameters;
+        pred1.setParameters(newParameters);
         if (currTokenType() == COMMA) {
             match(COMMA);
             predicateRule(rule1, pred1);
