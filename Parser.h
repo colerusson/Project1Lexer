@@ -85,11 +85,23 @@ public:
     }
 
     //predicateList	->	COMMA predicate predicateList | lambda
-    void predicateList() {
+    void predicateList(Predicate& predicate1) {
         if (currTokenType() == COMMA) {
             match(COMMA);
-            predicate();
-            predicateList();
+            predicate(predicate1);
+            predicateList(predicate1);
+        }
+        else {
+            // lambda, do nothing
+        }
+    }
+
+    //predicateList	->	COMMA predicate predicateList | lambda
+    void predicateListRule(Rule& rule1, Predicate& pred1) {
+        if (currTokenType() == COMMA) {
+            match(COMMA);
+            predicateRule(rule1, pred1);
+            predicateListRule(rule1, pred1);
         }
         else {
             // lambda, do nothing
@@ -97,11 +109,23 @@ public:
     }
 
     //parameterList	-> 	COMMA parameter parameterList | lambda
-    void parameterList() {
+    void parameterList(Predicate& predicate) {
         if (currTokenType() == COMMA) {
             match(COMMA);
-            parameter();
-            parameterList();
+            parameter(predicate);
+            parameterList(predicate);
+        }
+        else {
+            // lambda, do nothing
+        }
+    }
+
+    //parameterList	-> 	COMMA parameter parameterList | lambda
+    void parameterListRule(Rule& newRule, Predicate& pred) {
+        if (currTokenType() == COMMA) {
+            match(COMMA);
+            parameterRule(newRule, pred);
+            parameterListRule(newRule, pred);
         }
         else {
             // lambda, do nothing
@@ -109,11 +133,13 @@ public:
     }
 
     //stringList	-> 	COMMA STRING stringList | lambda
-    void stringList() {
+    void stringList(Predicate& predicate) {
         if (currTokenType() == COMMA) {
             match(COMMA);
             match(STRING);
-            stringList();
+            program.addDomain(getPrevTokenContents());
+            predicate.addParameter(getPrevTokenContents());
+            stringList(predicate);
         }
         else {
             //lambda, do nothing
@@ -121,12 +147,29 @@ public:
     }
 
     //parameter	->	STRING | ID
-    void parameter() {
+    void parameter(Predicate& predicate) {
         if (currTokenType() == STRING) {
             match(STRING);
+            predicate.addParameter(getPrevTokenContents());
         }
         else if (currTokenType() == ID) {
             match(ID);
+            predicate.addParameter(getPrevTokenContents());
+        }
+        else {
+            // lambda, do nothing
+        }
+    }
+
+    //parameter	->	STRING | ID
+    void parameterRule(Rule& newRule, Predicate& pred) {
+        if (currTokenType() == STRING) {
+            match(STRING);
+            pred.addParameter(getPrevTokenContents());
+        }
+        else if (currTokenType() == ID) {
+            match(ID);
+            pred.addParameter(getPrevTokenContents());
         }
         else {
             // lambda, do nothing
@@ -134,21 +177,35 @@ public:
     }
 
     //headPredicate	->	ID LEFT_PAREN ID idList RIGHT_PAREN
-    void headPredicate() {
-        Predicate head;
+    void headPredicate(Rule& newRule) {
+        //Predicate head;
         match(ID);
+        newRule.getHead().setName(getPrevTokenContents());
         match(LEFT_PAREN);
         match(ID);
-        idList(head);
+        newRule.getHead().addParameter(getPrevTokenContents());
+        idList(newRule.getHead());
         match(RIGHT_PAREN);
     }
 
     //predicate	->	ID LEFT_PAREN parameter parameterList RIGHT_PAREN
-    void predicate() {
+    void predicate(Predicate& predicate) {
         match(ID);
+        predicate.setName(getPrevTokenContents());
         match(LEFT_PAREN);
-        parameter();
-        parameterList();
+        parameter(predicate);
+        parameterList(predicate);
+        match(RIGHT_PAREN);
+    }
+
+    //predicate	->	ID LEFT_PAREN parameter parameterList RIGHT_PAREN
+    void predicateRule(Rule& newRule, Predicate& newPred) {
+        match(ID);
+        newPred.setName(getPrevTokenContents());
+        match(LEFT_PAREN);
+        parameterRule(newRule, newPred);
+        parameterListRule(newRule, newPred);
+        newRule.addPredicate(newPred);
         match(RIGHT_PAREN);
     }
 
@@ -172,29 +229,37 @@ public:
 
     //fact -> ID LEFT_PAREN STRING stringList RIGHT_PAREN PERIOD
     void fact() {
-        Predicate newScheme;
+        Predicate newFact;
         match(ID);
-        newScheme.setName(getPrevTokenContents());
+        newFact.setName(getPrevTokenContents());
         match(LEFT_PAREN);
         match(STRING);
-        stringList();
+        program.addDomain(getPrevTokenContents());
+        newFact.addParameter(getPrevTokenContents());
+        stringList(newFact);
         match(RIGHT_PAREN);
         match(PERIOD);
+        program.addFact(newFact);
     }
 
     //rule -> headPredicate COLON_DASH predicate predicateList PERIOD
     void rule() {
-        headPredicate();
+        Rule newRule;
+        Predicate newPred;
+        headPredicate(newRule);
         match(COLON_DASH);
-        predicate();
-        predicateList();
+        predicateRule(newRule, newPred);
+        predicateListRule(newRule, newPred);
         match(PERIOD);
+        program.addRule(newRule);
     }
 
     //query	-> predicate Q_MARK
     void query() {
-        predicate();
+        Predicate newQuery;
+        predicate(newQuery);
         match(Q_MARK);
+        program.addQuery(newQuery);
     }
 
     //schemeList ->	scheme schemeList | lambda

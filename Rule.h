@@ -10,7 +10,7 @@ private:
 public:
     Rule() {}
 
-    const Predicate &getHead() const {
+    Predicate &getHead()  {
         return head;
     }
 
@@ -34,7 +34,7 @@ public:
     string toString() {
         string sep = "";
         stringstream out;
-        out << head.toString() << ":-";
+        out << head.toString() << " :- ";
         for (Predicate currPred : body) {
             out << sep << currPred.toString();
             sep = ",";
