@@ -45,10 +45,6 @@ public:
 
     DatalogProgram run() {
         DataLog();
-        //scheme();
-        //fact();
-        //rule();
-        //query();
         return program;
     }
 
@@ -76,11 +72,12 @@ public:
     }
 
     //   idList -> COMMA ID idList | lambda
-    void idList() {
+    void idList(Predicate& predicate) {
         if (currTokenType() == COMMA) {
             match(COMMA);
             match(ID);
-            idList();
+            predicate.addParameter(getPrevTokenContents());
+            idList(predicate);
         }
         else {
             // lambda, do nothing
@@ -138,10 +135,11 @@ public:
 
     //headPredicate	->	ID LEFT_PAREN ID idList RIGHT_PAREN
     void headPredicate() {
+        Predicate head;
         match(ID);
         match(LEFT_PAREN);
         match(ID);
-        idList();
+        idList(head);
         match(RIGHT_PAREN);
     }
 
@@ -161,10 +159,8 @@ public:
         newScheme.setName(getPrevTokenContents());
         match(LEFT_PAREN);
         match(ID);
-        Parameter firstParameter;
-        firstParameter.setValue(getPrevTokenContents());
-        newScheme.addParameter(firstParameter);
-        idList();
+        newScheme.addParameter(getPrevTokenContents());
+        idList(newScheme);
         //what type should ID list return
         //how to get that from the ID list into newScheme
         //maybe give it the predicate
@@ -176,7 +172,9 @@ public:
 
     //fact -> ID LEFT_PAREN STRING stringList RIGHT_PAREN PERIOD
     void fact() {
+        Predicate newScheme;
         match(ID);
+        newScheme.setName(getPrevTokenContents());
         match(LEFT_PAREN);
         match(STRING);
         stringList();
