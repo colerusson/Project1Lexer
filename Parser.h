@@ -122,18 +122,6 @@ public:
         }
     }
 
-    //parameterList	-> 	COMMA parameter parameterList | lambda
-    void parameterListRule(Rule& newRule, Predicate& pred) {
-        if (currTokenType() == COMMA) {
-            match(COMMA);
-            parameterRule(newRule, pred);
-            parameterListRule(newRule, pred);
-        }
-        else {
-            // lambda, do nothing
-        }
-    }
-
     //stringList	-> 	COMMA STRING stringList | lambda
     void stringList(Predicate& predicate) {
         if (currTokenType() == COMMA) {
@@ -157,21 +145,6 @@ public:
         else if (currTokenType() == ID) {
             match(ID);
             predicate.addParameter(getPrevTokenContents());
-        }
-        else {
-            // lambda, do nothing
-        }
-    }
-
-    //parameter	->	STRING | ID
-    void parameterRule(Rule& newRule, Predicate& pred) {
-        if (currTokenType() == STRING) {
-            match(STRING);
-            pred.addParameter(getPrevTokenContents());
-        }
-        else if (currTokenType() == ID) {
-            match(ID);
-            pred.addParameter(getPrevTokenContents());
         }
         else {
             // lambda, do nothing
@@ -205,8 +178,8 @@ public:
         match(ID);
         newPred.setName(getPrevTokenContents());
         match(LEFT_PAREN);
-        parameterRule(newRule, newPred);
-        parameterListRule(newRule, newPred);
+        parameter(newPred);
+        parameterList(newPred);
         newRule.addPredicate(newPred);
         match(RIGHT_PAREN);
     }
