@@ -19,7 +19,23 @@ public:
     void setAttributes(const vector<string> &attributes) {
         Header::attributes = attributes;
     }
-};
 
+    // Header :
+    unsigned int size() {
+        return attributes.size();
+    }
+
+    string at(unsigned int index) {
+        // for at methods
+        if (index >= size()) {
+            throw "ERROR";
+        }
+        return attributes.at(index);
+    }
+
+    void push_back(string value) {
+        attributes.push_back(value);
+    }
+};
 
 #endif //PROJECT1LEXER_HEADER_H

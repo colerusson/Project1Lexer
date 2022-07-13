@@ -5,6 +5,7 @@
 #include "Token.h"
 #include "Lexer.h"
 #include "Parser.h"
+#include "Relation.h"
 #include "DatalogProgram.h"
 
 using namespace std;

@@ -1,6 +1,7 @@
 #ifndef PROJECT1LEXER_TUPLE_H
 #define PROJECT1LEXER_TUPLE_H
 #include "Header.h"
+#include <sstream>
 #include <set>
 
 class Tuple {
@@ -24,9 +25,39 @@ public:
         return values < t.values;
     }
 
-    // TODO: add more delegation functions as needed
+    // Tuple :
+    unsigned int size() {
+        return values.size();
+    }
 
+    string at(unsigned int index) {
+        // for at methods
+        if (index >= size()) {
+            throw "ERROR";
+        }
+        return values.at(index);
+    }
+
+    void push_back(string value) {
+        values.push_back(value);
+    }
+
+    // This goes in your tuple class, note that tuple must include Header.h
+    string toString(Header header) {
+        // for the toString
+        if (size() != header.size()) {
+            throw "ERROR";
+        }
+        stringstream out;
+        string sep = "";
+        for (unsigned i = 0; i < size(); i++) {
+            string name = header.at(i);
+            string value = at(i);
+            out << sep << name << "=" << value;
+            sep = ",";
+        }
+        return out.str();
+    }
 };
-
 
 #endif //PROJECT1LEXER_TUPLE_H

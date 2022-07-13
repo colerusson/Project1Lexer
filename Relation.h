@@ -37,6 +37,24 @@ public:
         Relation::tuples = tuples;
     }
 
+    void addTuple(Tuple t) {
+        tuples.insert(t);
+    }
+
+    unsigned int size() {
+        return tuples.size();
+    }
+
+    string toString() {
+        stringstream out;
+        for (Tuple t : tuples) {
+            if (t.size() > 0) {
+                out << t.toString(header) << endl;
+            }
+        }
+        return out.str();
+    }
+
     //B == C
     //A == "purple"
     Relation select(unsigned int col, string value) {
@@ -92,8 +110,6 @@ public:
                 //(1, 2, 3, 4, 5) -> (4, 3)
             //put that tuple into the output relation
     }
-
 };
-
 
 #endif //PROJECT1LEXER_RELATION_H
