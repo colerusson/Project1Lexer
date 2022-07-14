@@ -97,18 +97,20 @@ public:
     Relation* project(vector<unsigned int> colsToKeep) {
         Relation* output = new Relation();
         output->setName(name);
-        //{3,2}
-        //set name to something
-        //create a new header (empty)
-            //fill that header with the reordered data
-            //(A, B, C, D, E) -> (D, C)
-            //Put that header into the output relation
-
-        //for each tuple t
-            //new empty tuple
-                //fill that tuple with reordered data
-                //(1, 2, 3, 4, 5) -> (4, 3)
-            //put that tuple into the output relation
+        output->setHeader(header);
+        Header newHeader = Header();
+        for (unsigned int i = 0; i < colsToKeep.size(); ++i) {
+            newHeader.at(i) = this->header.at(i);
+        }
+        output->setHeader(newHeader);
+        output->setTuples(tuples);
+        for (Tuple t : tuples) {
+            Tuple newTuple = Tuple();
+            for (unsigned int i = 0; i < colsToKeep.size(); ++i) {
+                newTuple.at(i) = t.at(i);
+            }
+            output->addTuple(newTuple);
+        }
     }
 };
 
