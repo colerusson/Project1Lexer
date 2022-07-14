@@ -32,4 +32,4 @@ add_executable(Project1Lexer
         Predicate.h
         Parameter.h
         Rule.h
-        DatalogProgram.h Tuple.h Relation.h Header.h)
+        DatalogProgram.h Tuple.h Relation.h Header.h "Interpreter .h")

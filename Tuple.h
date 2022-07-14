@@ -2,7 +2,6 @@
 #define PROJECT1LEXER_TUPLE_H
 #include "Header.h"
 #include <sstream>
-#include <set>
 
 class Tuple {
 private:
