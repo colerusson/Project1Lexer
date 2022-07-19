@@ -9,7 +9,7 @@ private:
 
 public:
     Tuple() { }
-    Tuple(vector<string> values) : values(values) { }
+    Tuple(vector<string> values) : values(values) {}
 
     const vector<string> &getValues() const {
         return values;

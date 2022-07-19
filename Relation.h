@@ -111,6 +111,7 @@ public:
             }
             output->addTuple(newTuple);
         }
+        return output;
     }
 };
 

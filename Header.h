@@ -10,7 +10,7 @@ private:
 
 public:
     Header() { }
-    Header(vector<string> attributes) : attributes(attributes) { }
+    Header(vector<string> attributes) : attributes(attributes) {}
 
     const vector<string> &getAttributes() const {
         return attributes;
