@@ -5,7 +5,7 @@
 #include "Token.h"
 #include "Lexer.h"
 #include "Parser.h"
-#include "Relation.h"
+#include "Interpreter .h"
 #include "DatalogProgram.h"
 
 using namespace std;
@@ -22,8 +22,10 @@ int main(int argc, char* argv[]) {
     try {
         Parser parser = Parser(tokens);
         DatalogProgram program = parser.run();
-        cout << "Success!" << endl;
+        //cout << "Success!" << endl;
         cout << program.toString();
+        //Interpreter interpreter(program);
+        //interpreter.run();
     }
     catch(Token errorToken) {
         cout << "Failure!" << endl << " " << errorToken.toString();
