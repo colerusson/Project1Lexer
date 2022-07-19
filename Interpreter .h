@@ -13,7 +13,7 @@ public:
     Interpreter(const DatalogProgram &program) : program(program) {}
 
     //the interpreter takes in the vectors from the datalog program to read and add to the database
-    //it evaluates all of the relations
+    //it evaluates all the relations
 
     void run() {
         // evalSchemes       //all relations are essentially schemes and facts
@@ -37,15 +37,15 @@ public:
         //add stuff to the database here
     }
 
-    void evalQueries() {
-        //here we will evaluate the queries and then print them out for the output
-        for (Predicate query : program.getQueries()) {
-            Relation* result = evaluatePredicate(query);
-        }
-    }
+//    void evalQueries() {
+//        //here we will evaluate the queries and then print them out for the output
+//        for (Predicate query : program.getQueries()) {
+//            Relation* result = evaluatePredicate(query);
+//        }
+//    }
 
-    Relation* evaluatePredicate(Predicate predToEval) {
-        //this function takes a relation from the databse and selects, projects, and renames
+//    Relation* evaluatePredicate(Predicate predToEval) {
+//        //this function takes a relation from the databse and selects, projects, and renames
 //        Relation* output = database.getRelation(predToEval.getName());
 //        for (Parameter p : predToEval.getParameters()) {
 //            if (p.isConst()) {
@@ -62,10 +62,10 @@ public:
 //                }
 //            }
 //        }
-        // project
-        // rename
-        //return output;
-    }
+//        // project
+//        //rename
+//        return output;
+//    }
 };
 
 #endif //PROJECT1LEXER_INTERPRETER_H

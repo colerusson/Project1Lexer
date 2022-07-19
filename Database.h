@@ -10,7 +10,8 @@ public:
     Database() {}
     Database(const map<string, Relation> &database) : database(database) {}
 
-    //this class is just a map that holds all the relations, not much code will be here other than adding relations
+    //this class is just a map that holds all the relations,
+    //not much code will be here other than adding relations
     //and potentially adding tuples
 
     const map<string, Relation> &getDatabase() const {
