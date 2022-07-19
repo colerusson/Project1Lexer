@@ -7,6 +7,7 @@ private:
     map<string, Relation> database;
 
 public:
+    Database() {}
     Database(const map<string, Relation> &database) : database(database) {}
 
     //this class is just a map that holds all the relations, not much code will be here other than adding relations

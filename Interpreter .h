@@ -1,7 +1,6 @@
 #ifndef PROJECT1LEXER_INTERPRETER_H
 #define PROJECT1LEXER_INTERPRETER_H
 #include "DatalogProgram.h"
-#include "Relation.h"
 #include "Database.h"
 
 class Interpreter {
@@ -10,7 +9,8 @@ private:
     Database database;
 
 public:
-    Interpreter(const DatalogProgram &program, const Database &database) : program(program), database(database) {}
+    Interpreter() {}
+    Interpreter(const DatalogProgram &program) : program(program) {}
 
     //the interpreter takes in the vectors from the datalog program to read and add to the database
     //it evaluates all of the relations

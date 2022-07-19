@@ -22,9 +22,9 @@ int main(int argc, char* argv[]) {
     try {
         Parser parser = Parser(tokens);
         DatalogProgram program = parser.run();
-        //cout << "Success!" << endl;
+        cout << "Success!" << endl;
         cout << program.toString();
-        //Interpreter interpreter(program);
+        Interpreter interpreter = Interpreter(program);
         //interpreter.run();
     }
     catch(Token errorToken) {
