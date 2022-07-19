@@ -46,25 +46,25 @@ public:
 
     Relation* evaluatePredicate(Predicate predToEval) {
         //this function takes a relation from the databse and selects, projects, and renames
-        Relation* output = database.getRelation(predToEval.getName());
-        for (Parameter p : predToEval.getParameters()) {
-            if (p.isConst()) {
-                // output select type 1 (int, value)
-                output = output->select();
-            }
-            else {
-                if (seenBefore()) {
-                    // (int, int)
-                    output = output->select();
-                }
-                else {
-                    // mark it as seen
-                }
-            }
-        }
+//        Relation* output = database.getRelation(predToEval.getName());
+//        for (Parameter p : predToEval.getParameters()) {
+//            if (p.isConst()) {
+//                // output select type 1 (int, value)
+//                output = output->select();
+//            }
+//            else {
+//                if (seenBefore()) {
+//                    // (int, int)
+//                    output = output->select();
+//                }
+//                else {
+//                    // mark it as seen
+//                }
+//            }
+//        }
         // project
         // rename
-        return output;
+        //return output;
     }
 };
 
