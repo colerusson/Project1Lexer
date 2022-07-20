@@ -26,46 +26,68 @@ public:
     }
 
     void evalSchemes() {
+        for(Predicate scheme : program.getSchemes()) {
+            Relation* schemesRel = new Relation;
+            Header header;
+            for(Parameter p : scheme.getParameters()) {
+                header.push_back(p.toString());
+            }
+            string schemeName = scheme.getName();
+            schemesRel->setName(schemeName);
+            schemesRel->setHeader(header);
+            database.addRelation(schemeName, schemesRel);
+        }
         //add stuff to the database here
+        //takes all the data and makes a relation objet that we can pass to database
+        //take your schemes, make a new relation object for each one, get name and set name
+        //get all the parameters and put in the header
+        //and then put that relation and put it in the database
+        //make a for loop and make a new relation each time
+        //put a breakpoint at the beginning hear and walk through to see what is being added
     }
 
     void evalFacts() {
         //add stuff to the database here
+        //here we don't make new relations, we just add to the relations that are already made in schemes
+        //use search and stuff for the facts to find matching scheme relation object
+        //here we can cout things to see the tuples
     }
 
     void evalRules() {
         //add stuff to the database here
     }
 
-//    void evalQueries() {
-//        //here we will evaluate the queries and then print them out for the output
-//        for (Predicate query : program.getQueries()) {
-//            Relation* result = evaluatePredicate(query);
-//        }
-//    }
+    void evalQueries() {
+        //here we will evaluate the queries and then print them out for the output
+        for (Predicate query : program.getQueries()) {
+            Relation* result = evaluatePredicate(query);
+        }
 
-//    Relation* evaluatePredicate(Predicate predToEval) {
-//        //this function takes a relation from the databse and selects, projects, and renames
-//        Relation* output = database.getRelation(predToEval.getName());
-//        for (Parameter p : predToEval.getParameters()) {
-//            if (p.isConst()) {
-//                // output select type 1 (int, value)
-//                output = output->select();
-//            }
-//            else {
-//                if (seenBefore()) {
-//                    // (int, int)
-//                    output = output->select();
-//                }
-//                else {
-//                    // mark it as seen
-//                }
-//            }
-//        }
-//        // project
-//        //rename
-//        return output;
-//    }
+        //this is where we use the project and rename and such just one time
+    }
+
+    Relation* evaluatePredicate(Predicate predToEval) {
+        //this function takes a relation from the databse and selects, projects, and renames
+        Relation* output = database.getRelation(predToEval.getName());
+        for (Parameter p : predToEval.getParameters()) {
+            if (p.isConst()) {
+                // output select type 1 (int, value)
+                output = output->select();
+            }
+            else {
+                if (seenBefore()) {
+                    // (int, int)
+                    output = output->select();
+                }
+                else {
+                    // mark it as seen
+                }
+            }
+        }
+        // project
+        //rename
+        return output;
+    }
 };
 
 #endif //PROJECT1LEXER_INTERPRETER_H

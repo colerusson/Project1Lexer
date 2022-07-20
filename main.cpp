@@ -25,7 +25,7 @@ int main(int argc, char* argv[]) {
         //cout << "Success!" << endl;
         cout << program.toString();
         Interpreter interpreter = Interpreter(program);
-        //interpreter.run();
+        interpreter.run();
     }
     catch(Token errorToken) {
         cout << "Failure!" << endl << " " << errorToken.toString();
