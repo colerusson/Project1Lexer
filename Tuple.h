@@ -32,7 +32,7 @@ public:
     string at(unsigned int index) {
         // for at methods
         if (index >= size()) {
-            throw "ERROR";
+            throw "ERROR (1)";
         }
         return values.at(index);
     }
@@ -45,7 +45,8 @@ public:
     string toString(Header header) {
         // for the toString
         if (size() != header.size()) {
-            throw "ERROR";
+            cout << size() << endl << header.size() << endl;
+            throw "ERROR (2)";
         }
         stringstream out;
         string sep = "";
@@ -53,7 +54,7 @@ public:
             string name = header.at(i);
             string value = at(i);
             out << sep << name << "=" << value;
-            sep = ",";
+            sep = ", ";
         }
         return out.str();
     }

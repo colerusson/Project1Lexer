@@ -22,14 +22,12 @@ public:
     }
 
     bool isConst() {
-        bool isConst;
         if (value.at(0) == '\'') {
-            isConst = true;
+            return true;
         }
         else {
-            isConst = false;
+            return false;
         }
-        return isConst;
     }
 
     string toString() {

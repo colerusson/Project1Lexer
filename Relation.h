@@ -48,7 +48,7 @@ public:
         stringstream out;
         for (Tuple t : tuples) {
             if (t.size() > 0) {
-                out << t.toString(header) << endl;
+                out << "  " << t.toString(header) << endl;
             }
         }
         return out.str();
@@ -65,7 +65,6 @@ public:
                 output->addTuple(currTuple);
             }
         }
-
         return output;
     }
 
@@ -80,7 +79,6 @@ public:
                 output->addTuple(currTuple);
             }
         }
-
         return output;
     }
 
@@ -96,17 +94,16 @@ public:
     Relation* project(vector<unsigned int> colsToKeep) {
         Relation* output = new Relation();
         output->setName(name);
-        output->setHeader(header);
         Header newHeader = Header();
         for (unsigned int i = 0; i < colsToKeep.size(); ++i) {
-            newHeader.at(i) = this->header.at(i);
+            newHeader.push_back(this->header.at(i));
         }
         output->setHeader(newHeader);
         output->setTuples(tuples);
         for (Tuple t : tuples) {
             Tuple newTuple = Tuple();
             for (unsigned int i = 0; i < colsToKeep.size(); ++i) {
-                newTuple.at(i) = t.at(i);
+                newTuple.push_back(t.at(i));
             }
             output->addTuple(newTuple);
         }

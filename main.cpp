@@ -15,10 +15,11 @@ int main(int argc, char* argv[]) {
     string stringFile;
     stringFile.assign((istreambuf_iterator<char>(inputFile)), (istreambuf_iterator<char>()));
 
+    vector<Token> tokens;
+    Lexer lexer;
+    tokens = lexer.run(stringFile);
+
     try {
-        vector<Token> tokens;
-        Lexer lexer;
-        tokens = lexer.run(stringFile);
         Parser parser = Parser(tokens);
         DatalogProgram program = parser.run();
         Interpreter interpreter = Interpreter(program);
@@ -28,7 +29,7 @@ int main(int argc, char* argv[]) {
         cout << "Failure!" << endl << " " << errorToken.toString();
     }
     catch(const char* errorMsg) {
-        cout << errorMsg;
+        cout << "Failure!" << endl << errorMsg;
     }
 
     return 0;

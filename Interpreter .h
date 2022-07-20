@@ -12,17 +12,11 @@ public:
     Interpreter() {}
     Interpreter(const DatalogProgram &program) : program(program) {}
 
-    //the interpreter takes in the vectors from the datalog program to read and add to the database
-    //it evaluates all the relations
-
     void run() {
-        evalSchemes();       //all relations are essentially schemes and facts
+        evalSchemes();
         evalFacts();
-        // evalRules();        //this will be project 4
-        // evalQueries();      //uses the relations to evaluate
-
-        //evaluating the schemes facts and rules makes the database
-        //the queries evaluates what is in the database
+        // evalRules();
+        evalQueries();
     }
 
     void evalSchemes() {
@@ -37,29 +31,17 @@ public:
             schemesRel->setHeader(header);
             database.addRelation(schemeName, schemesRel);
         }
-        //add stuff to the database here
-        //takes all the data and makes a relation object that we can pass to database
-        //take your schemes, make a new relation object for each one, get name and set name
-        //get all the parameters and put in the header
-        //and then put that relation and put it in the database
-        //make a for loop and make a new relation each time
-        //put a breakpoint at the beginning here and walk through to see what is being added
     }
 
     void evalFacts() {
         for (Predicate fact : program.getFacts()) {
-            string factName = fact.getName();
             Tuple t;
             for (Parameter p : fact.getParameters()) {
-                t.push_back(p.getValue());
+                t.push_back(p.toString());
             }
+            string factName = fact.getName();
             database.getRelation(factName)->addTuple(t);
-            //cout << database.getRelation(factName)->toString() << endl;
         }
-        //add stuff to the database here - make a tuple for each fact and add it to the respective relation
-        //here we don't make new relations, we just add to the relations that are already made in schemes
-        //use search and stuff for the facts to find matching scheme relation object
-        //here we can cout things to see the tuples
     }
 
     void evalRules() {
@@ -67,34 +49,49 @@ public:
     }
 
     void evalQueries() {
-        //here we will evaluate the queries and then print them out for the output
         for (Predicate query : program.getQueries()) {
             Relation* result = evaluatePredicate(query);
+            cout << query.toString() << "? ";
+            if (result->size() > 0) {
+                cout << "Yes(" << result->size() << ")" << endl;
+            }
+            else {
+                cout << "No" << endl;
+            }
+            cout << result->toString();
         }
     }
 
     Relation* evaluatePredicate(Predicate predToEval) {
-        //this function takes a relation from the database and selects, projects, and renames
+        // this function takes a relation from the database and selects, projects, and renames
         Relation* output = database.getRelation(predToEval.getName());
+        map<string, unsigned int> parameterMap;
+        vector<unsigned int> projectVector;
+        vector<string> renameVector;
+        unsigned int i = 0;
         for (Parameter p : predToEval.getParameters()) {
-            if (p.isConst()) {
-                //constant means it is a string, within single quotes
-                //variable means that it is an ID value, not in quotes
+            if (p.isConst() == true) {
                 // output select type 1 (int, value)
-                output = output->select();
+                output = output->select(i, p.toString());
             }
             else {
-                if (seenBefore()) {
+                if (!(parameterMap.find(p.toString()) == parameterMap.end())) {
                     // (int, int)
-                    output = output->select();
+                    auto iterator = parameterMap.find(p.toString());
+                    unsigned int val = iterator->second;
+                    output = output->select(i,val);
                 }
                 else {
                     // mark it as seen
+                    parameterMap.insert({p.toString(), i});
+                    projectVector.push_back(i);
+                    renameVector.push_back(p.toString());
                 }
             }
+            ++i;
         }
-        // handle the project to get correct columns
-        // handle the renaming to get correct names
+        output = output->project(projectVector);
+        output = output->rename(renameVector);
         return output;
     }
 };
