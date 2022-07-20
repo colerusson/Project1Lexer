@@ -45,7 +45,6 @@ public:
     string toString(Header header) {
         // for the toString
         if (size() != header.size()) {
-            cout << size() << endl << header.size() << endl;
             throw "ERROR (2)";
         }
         stringstream out;

@@ -94,16 +94,15 @@ public:
     Relation* project(vector<unsigned int> colsToKeep) {
         Relation* output = new Relation();
         output->setName(name);
-        Header newHeader = Header();
-        for (unsigned int i = 0; i < colsToKeep.size(); ++i) {
-            newHeader.push_back(this->header.at(i));
+        Header newHeader;
+        for (unsigned int column : colsToKeep) {
+            newHeader.push_back(header.at(column));
         }
         output->setHeader(newHeader);
-        output->setTuples(tuples);
         for (Tuple t : tuples) {
-            Tuple newTuple = Tuple();
-            for (unsigned int i = 0; i < colsToKeep.size(); ++i) {
-                newTuple.push_back(t.at(i));
+            Tuple newTuple;
+            for (unsigned int column : colsToKeep) {
+                newTuple.push_back(t.at(column));
             }
             output->addTuple(newTuple);
         }

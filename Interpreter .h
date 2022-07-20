@@ -70,7 +70,7 @@ public:
         vector<string> renameVector;
         unsigned int i = 0;
         for (Parameter p : predToEval.getParameters()) {
-            if (p.isConst() == true) {
+            if (p.isConst()) {
                 // output select type 1 (int, value)
                 output = output->select(i, p.toString());
             }
