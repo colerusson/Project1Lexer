@@ -15,15 +15,12 @@ int main(int argc, char* argv[]) {
     string stringFile;
     stringFile.assign((istreambuf_iterator<char>(inputFile)), (istreambuf_iterator<char>()));
 
-    vector<Token> tokens;
-    Lexer lexer;
-    tokens = lexer.run(stringFile);
-
     try {
+        vector<Token> tokens;
+        Lexer lexer;
+        tokens = lexer.run(stringFile);
         Parser parser = Parser(tokens);
         DatalogProgram program = parser.run();
-        //cout << "Success!" << endl;
-        cout << program.toString();
         Interpreter interpreter = Interpreter(program);
         interpreter.run();
     }

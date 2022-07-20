@@ -16,10 +16,10 @@ public:
     //it evaluates all the relations
 
     void run() {
-        // evalSchemes       //all relations are essentially schemes and facts
-        // evalFacts
-        // evalRules        //this will be project 4
-        // evalQueries      //uses the relations to evaluate
+        evalSchemes();       //all relations are essentially schemes and facts
+        evalFacts();
+        // evalRules();        //this will be project 4
+        // evalQueries();      //uses the relations to evaluate
 
         //evaluating the schemes facts and rules makes the database
         //the queries evaluates what is in the database
@@ -43,13 +43,18 @@ public:
         //get all the parameters and put in the header
         //and then put that relation and put it in the database
         //make a for loop and make a new relation each time
-        //put a breakpoint at the beginning hear and walk through to see what is being added
+        //put a breakpoint at the beginning here and walk through to see what is being added
     }
 
     void evalFacts() {
         for (Predicate fact : program.getFacts()) {
             string factName = fact.getName();
-
+            Tuple t;
+            for (Parameter p : fact.getParameters()) {
+                t.push_back(p.getValue());
+            }
+            database.getRelation(factName)->addTuple(t);
+            //cout << database.getRelation(factName)->toString() << endl;
         }
         //add stuff to the database here - make a tuple for each fact and add it to the respective relation
         //here we don't make new relations, we just add to the relations that are already made in schemes
@@ -58,7 +63,7 @@ public:
     }
 
     void evalRules() {
-        //add stuff to the database here
+        //add rules to the database here
     }
 
     void evalQueries() {
@@ -66,12 +71,10 @@ public:
         for (Predicate query : program.getQueries()) {
             Relation* result = evaluatePredicate(query);
         }
-
-        //this is where we use the project and rename and such just one time
     }
 
     Relation* evaluatePredicate(Predicate predToEval) {
-        //this function takes a relation from the databse and selects, projects, and renames
+        //this function takes a relation from the database and selects, projects, and renames
         Relation* output = database.getRelation(predToEval.getName());
         for (Parameter p : predToEval.getParameters()) {
             if (p.isConst()) {
@@ -90,8 +93,8 @@ public:
                 }
             }
         }
-        // project
-        //rename
+        // handle the project to get correct columns
+        // handle the renaming to get correct names
         return output;
     }
 };
