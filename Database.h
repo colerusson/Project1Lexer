@@ -1,6 +1,7 @@
 #ifndef PROJECT1LEXER_DATABASE_H
 #define PROJECT1LEXER_DATABASE_H
 #include "Relation.h"
+#include <map>
 
 class Database {
 private:

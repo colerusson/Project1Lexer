@@ -21,6 +21,17 @@ public:
         Parameter::value = value;
     }
 
+    bool isConst() {
+        bool isConst;
+        if (value.at(0) == '\'') {
+            isConst = true;
+        }
+        else {
+            isConst = false;
+        }
+        return isConst;
+    }
+
     string toString() {
         return value;
     }

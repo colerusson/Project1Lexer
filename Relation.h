@@ -1,7 +1,6 @@
 #ifndef PROJECT1LEXER_RELATION_H
 #define PROJECT1LEXER_RELATION_H
 #include <set>
-#include <map>
 #include "Tuple.h"
 
 class Relation {

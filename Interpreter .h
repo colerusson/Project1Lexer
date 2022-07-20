@@ -26,10 +26,10 @@ public:
     }
 
     void evalSchemes() {
-        for(Predicate scheme : program.getSchemes()) {
+        for (Predicate scheme : program.getSchemes()) {
             Relation* schemesRel = new Relation;
             Header header;
-            for(Parameter p : scheme.getParameters()) {
+            for (Parameter p : scheme.getParameters()) {
                 header.push_back(p.toString());
             }
             string schemeName = scheme.getName();
@@ -38,7 +38,7 @@ public:
             database.addRelation(schemeName, schemesRel);
         }
         //add stuff to the database here
-        //takes all the data and makes a relation objet that we can pass to database
+        //takes all the data and makes a relation object that we can pass to database
         //take your schemes, make a new relation object for each one, get name and set name
         //get all the parameters and put in the header
         //and then put that relation and put it in the database
@@ -47,7 +47,11 @@ public:
     }
 
     void evalFacts() {
-        //add stuff to the database here
+        for (Predicate fact : program.getFacts()) {
+            string factName = fact.getName();
+
+        }
+        //add stuff to the database here - make a tuple for each fact and add it to the respective relation
         //here we don't make new relations, we just add to the relations that are already made in schemes
         //use search and stuff for the facts to find matching scheme relation object
         //here we can cout things to see the tuples
@@ -71,6 +75,8 @@ public:
         Relation* output = database.getRelation(predToEval.getName());
         for (Parameter p : predToEval.getParameters()) {
             if (p.isConst()) {
+                //constant means it is a string, within single quotes
+                //variable means that it is an ID value, not in quotes
                 // output select type 1 (int, value)
                 output = output->select();
             }
