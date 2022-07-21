@@ -17,9 +17,9 @@ int main(int argc, char* argv[]) {
 
     vector<Token> tokens;
     Lexer lexer;
-    tokens = lexer.run(stringFile);
 
     try {
+        tokens = lexer.run(stringFile);
         Parser parser = Parser(tokens);
         DatalogProgram program = parser.run();
         Interpreter interpreter = Interpreter(program);
