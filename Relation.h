@@ -1,6 +1,8 @@
 #ifndef PROJECT1LEXER_RELATION_H
 #define PROJECT1LEXER_RELATION_H
 #include <set>
+#include <map>
+#include <utility>
 #include "Tuple.h"
 
 class Relation {
@@ -107,6 +109,81 @@ public:
             output->addTuple(newTuple);
         }
         return output;
+    }
+
+    Relation* naturalJoin(Relation* other) {
+        Relation* r1 = this;
+        Relation* r2 = other;
+        Relation* output = new Relation();
+        // set name of output relation
+        output->setName(r1->getName() + " |x| " + r2->getName());
+        unsigned int index1;
+        unsigned int index2;
+        bool found;
+        Header h1 = r1->getHeader();
+        Header h2 = r2->getHeader();
+        // initialize overlap object here
+        vector<pair<unsigned int, unsigned int>> overlap;
+        // initialize unique columns object
+        vector<unsigned int> uniqueCols;
+        // calculate header overlap of 'this' and 'other' relations
+        for (index1 = 0; index1 < h1.size(); ++index1) {
+            found = false;
+            for (index2 = 0; index2 < h2.size(); ++index1) {
+                if (h1.at(index1) == h2.at(index2)) {
+                    found = true;
+                    overlap.push_back({index1, index2});
+                }
+            }
+            if (!found) {
+                uniqueCols.push_back(index2);
+            }
+        }
+        // combine headers -- will be the header for 'output'
+        combineHeaders(h1, h2, uniqueCols);
+        // combine tuples -- will be the tuples for 'output'
+        for (Tuple t1 : r1->getTuples()) {
+            for (Tuple t2 : r2->getTuples()) {
+                if (isJoinable(t1, t2, overlap)) {
+                    Tuple newTuple = combineTuples(t1, t2, uniqueCols);
+                    output->addTuple(newTuple);
+                }
+            }
+        }
+        return output;
+    }
+
+    Header* combineHeaders (Header& h1, Header& h2, vector<unsigned int> uniqueCols) {
+        // let newHeader be a new empty header
+        Header* newHeader = new Header();
+        // copy all values from h1 into newHeader
+        newHeader->setAttributes(h1.getAttributes());
+        //for i in uniqueCols:
+        //copy h2[i] into newHeader
+        for (unsigned int i = 0; i < uniqueCols.size(); ++i) {
+            newHeader->setAttributes(h1.getAttributes());
+        }
+        return newHeader;
+    }
+
+    bool isJoinable (Tuple& t1, Tuple& t2, vector<pair<unsigned int, unsigned int>> overlap) {
+        for (pair<unsigned int, unsigned int> currPair : overlap) {
+            if (currPair.first != currPair.second) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    Tuple combineTuples (Tuple& t1, Tuple& t2, vector<unsigned int> uniqueCols) {
+        //let newTuple be a new empty tuple
+        Tuple newTuple;
+        //copy all values from t1 into newTuple
+        newTuple.setValues(t1.getValues());
+        for (unsigned int i = 0; i < uniqueCols.size(); ++i) {
+            newTuple.setValues(t2.getValues());
+        }
+        return newTuple;
     }
 };
 
