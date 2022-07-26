@@ -127,9 +127,9 @@ public:
         // initialize unique columns object
         vector<unsigned int> uniqueCols;
         // calculate header overlap of 'this' and 'other' relations
-        for (index1 = 0; index1 < h1.size(); ++index1) {
+        for (index2 = 0; index2 < h2.size(); ++index2) {
             found = false;
-            for (index2 = 0; index2 < h2.size(); ++index1) {
+            for (index1 = 0; index1 < h1.size(); ++index1) {
                 if (h1.at(index1) == h2.at(index2)) {
                     found = true;
                     overlap.push_back({index1, index2});
@@ -140,7 +140,7 @@ public:
             }
         }
         // combine headers -- will be the header for 'output'
-        combineHeaders(h1, h2, uniqueCols);
+        output->setHeader(combineHeaders(h1, h2, uniqueCols));
         // combine tuples -- will be the tuples for 'output'
         for (Tuple t1 : r1->getTuples()) {
             for (Tuple t2 : r2->getTuples()) {
@@ -153,35 +153,35 @@ public:
         return output;
     }
 
-    Header* combineHeaders (Header& h1, Header& h2, vector<unsigned int> uniqueCols) {
+    Header combineHeaders(Header& h1, Header& h2, vector<unsigned int> uniqueCols) {
         // let newHeader be a new empty header
-        Header* newHeader = new Header();
+        Header newHeader;
         // copy all values from h1 into newHeader
-        newHeader->setAttributes(h1.getAttributes());
+        newHeader.setAttributes(h1.getAttributes());
         //for i in uniqueCols:
         //copy h2[i] into newHeader
         for (unsigned int i = 0; i < uniqueCols.size(); ++i) {
-            newHeader->setAttributes(h1.getAttributes());
+            newHeader.push_back(h2.at(uniqueCols.at(i)));
         }
         return newHeader;
     }
 
-    bool isJoinable (Tuple& t1, Tuple& t2, vector<pair<unsigned int, unsigned int>> overlap) {
+    bool isJoinable(Tuple& t1, Tuple& t2, vector<pair<unsigned int, unsigned int>> overlap) {
         for (pair<unsigned int, unsigned int> currPair : overlap) {
-            if (currPair.first != currPair.second) {
+            if (t1.at(currPair.first) != t2.at(currPair.second)) {
                 return false;
             }
         }
         return true;
     }
 
-    Tuple combineTuples (Tuple& t1, Tuple& t2, vector<unsigned int> uniqueCols) {
+    Tuple combineTuples(Tuple& t1, Tuple& t2, vector<unsigned int> uniqueCols) {
         //let newTuple be a new empty tuple
         Tuple newTuple;
         //copy all values from t1 into newTuple
         newTuple.setValues(t1.getValues());
         for (unsigned int i = 0; i < uniqueCols.size(); ++i) {
-            newTuple.setValues(t2.getValues());
+            newTuple.push_back(t2.at(uniqueCols.at(i)));
         }
         return newTuple;
     }
