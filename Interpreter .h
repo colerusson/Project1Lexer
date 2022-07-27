@@ -15,7 +15,7 @@ public:
     void run() {
         evalSchemes();
         evalFacts();
-        // evalRules();
+        evalRules();
         evalQueries();
     }
 
@@ -45,10 +45,51 @@ public:
     }
 
     void evalRules() {
-        //add rules to the database here
+        cout << "Rule Evaluation" << endl;
+        bool changed = true;
+        unsigned int counter = 0;
+        while (changed) {
+            changed = false;
+            for (Rule rule : program.getRules()) {
+                Relation* result = nullptr;
+                for (Predicate predicate : rule.getBody()) {
+                    if (result == nullptr) {
+                        result = evaluatePredicate(predicate);
+                    }
+                    else {
+                        result = result->naturalJoin(evaluatePredicate(predicate));
+                    }
+                }
+                Predicate p = rule.getHead();
+                vector<string> relationHeader = result->getHeader().getAttributes();
+                map<string, unsigned int> headerValues;
+                unsigned int i = 0;
+                for (i = 0; i < relationHeader.size(); ++i) {
+                    headerValues[relationHeader.at(i)] = i;
+                }
+                vector<unsigned int> headerIndex;
+                for (Parameter param : p.getParameters()) {
+                    if (headerValues.find(param.getValue()) != headerValues.end()) {
+                        unsigned int index = headerValues[param.getValue()];
+                        headerIndex.push_back(index);
+                    }
+                }
+                result = result->project(headerIndex);
+                result = result->rename(database.getRelation(p.getName())->getHeader().getAttributes());
+                result->setTuples(database.getRelation(p.getName())->newUnion(result));
+                if (result->size() > 0) {
+                    changed = true;
+                }
+                cout << rule.toString() << "." << endl;
+                cout << result->toString();
+            }
+            counter++;
+        }
+        cout << endl << "Schemes populated after " << counter << " passes through the Rules." << endl << endl;
     }
 
     void evalQueries() {
+        cout << "Query Evaluation" << endl;
         for (Predicate query : program.getQueries()) {
             Relation* result = evaluatePredicate(query);
             cout << query.toString() << "? ";

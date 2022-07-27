@@ -153,6 +153,19 @@ public:
         return output;
     }
 
+    set<Tuple> newUnion(Relation* result) {
+        set<Tuple> uniqueTuples;
+        unsigned int size = 0;
+        for (Tuple t : result->getTuples()) {
+           size = tuples.size();
+           tuples.insert(t);
+           if (size != tuples.size()) {
+               uniqueTuples.insert(t);
+           }
+        }
+        return uniqueTuples;
+    }
+
     Header combineHeaders(Header& h1, Header& h2, vector<unsigned int> uniqueCols) {
         // let newHeader be a new empty header
         Header newHeader;
