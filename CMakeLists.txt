@@ -37,4 +37,4 @@ add_executable(Project1Lexer
         Relation.h
         Header.h
         "Interpreter .h"
-        Database.h)
+        Database.h Graph.h)

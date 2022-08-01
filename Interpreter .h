@@ -2,6 +2,7 @@
 #define PROJECT1LEXER_INTERPRETER_H
 #include "DatalogProgram.h"
 #include "Database.h"
+#include "Graph.h"
 
 class Interpreter {
 private:
