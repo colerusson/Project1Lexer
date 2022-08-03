@@ -113,10 +113,6 @@ public:
             unsigned int counter = 0;
             vector<Rule> rules = program.getRules();
             while (changed) {
-                // additional checks I need to make sure the SCC is size 1
-                //if the SCC is size 1, then only loop once
-                //if the SCC is not dependent on itself, as in the head predicate and body don't match
-                // use a check at the end of while loop then break if both these hold
                 changed = false;
                 counter++;
                 for (unsigned int j : sCCs[i]) {
