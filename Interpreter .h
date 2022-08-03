@@ -113,6 +113,7 @@ public:
             vector<Rule> rules = program.getRules();
             while (changed) {
                 changed = false;
+                counter++;
                 for (unsigned int j : sCCs[i]) {
                     Relation *result = nullptr;
                     for (Predicate predicate: rules[j].getBody()) {
@@ -141,23 +142,9 @@ public:
                     if (result->size() > 0) {
                         changed = true;
                     }
-                    else {
-                        if (sCCs[i].size() > 1) {
-                            cout << rules[j].toString() << "." << endl;
-                            continue;
-                        }
-                        else {
-                            continue;
-                        }
-                    }
-                    if (sCCs[i].size() > 1);
                     cout << rules[j].toString() << "." << endl;
                     cout << result->toString();
                 }
-                counter++;
-            }
-            if (sCCs[i].size() <= 1) {
-                counter--;
             }
             cout << counter << " passes: ";
             string sep = "";
