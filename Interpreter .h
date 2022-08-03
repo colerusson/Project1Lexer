@@ -99,12 +99,12 @@ public:
         vector<set<int>> sCCs = graph.getScCs();
         for (unsigned int i = 0; i < sCCs.size(); i++) {
             cout << "SCC: ";
-            bool firstRule = true;
+            bool firstItem = true;
             for (int rVal : sCCs[i]) {
-                if (!firstRule) {
+                if (!firstItem) {
                     cout << ",";
                 }
-                firstRule = false;
+                firstItem = false;
                 cout << "R" << rVal;
             }
             cout << endl;
