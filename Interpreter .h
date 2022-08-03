@@ -109,9 +109,14 @@ public:
             }
             cout << endl;
             bool changed = true;
+            bool equal = false;
             unsigned int counter = 0;
             vector<Rule> rules = program.getRules();
             while (changed) {
+                // additional checks I need to make sure the SCC is size 1
+                //if the SCC is size 1, then only loop once
+                //if the SCC is not dependent on itself, as in the head predicate and body don't match
+                // use a check at the end of while loop then break if both these hold
                 changed = false;
                 counter++;
                 for (unsigned int j : sCCs[i]) {
@@ -119,8 +124,12 @@ public:
                     for (Predicate predicate: rules[j].getBody()) {
                         if (result == nullptr) {
                             result = evaluatePredicate(predicate);
-                        } else {
+                        }
+                        else {
                             result = result->naturalJoin(evaluatePredicate(predicate));
+                        }
+                        if (predicate.getName() == rules[j].getHead().getName()) {
+                            equal = true;
                         }
                     }
                     Predicate p = rules[j].getHead();
@@ -144,6 +153,9 @@ public:
                     }
                     cout << rules[j].toString() << "." << endl;
                     cout << result->toString();
+                }
+                if (sCCs[i].size() == 1 && !equal) {
+                    break;
                 }
             }
             cout << counter << " passes: ";
